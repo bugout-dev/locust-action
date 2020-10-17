@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 set -e
 
@@ -19,4 +19,11 @@ fi
 
 locust --format "$FORMAT" -r "$REPO" "$INITIAL_REF" "$TERMINAL_REF" | tee /locust.summary
 
-echo "::set-output name=summary::\"$(cat /locust.summary)\""
+# Thanks to this GitHub community post:
+# https://github.community/t/set-output-truncates-multiline-strings/16852/3
+summary=$(cat /locust.summary)
+summary="${summary//'%'/'%25'}"
+summary="${summary//$'\n'/'%0A'}"
+summary="${summary//$'\r'/'%0D'}"
+
+echo "::set-output name=summary::$summary"
