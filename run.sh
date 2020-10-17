@@ -4,6 +4,7 @@ set -e
 
 INITIAL_REF="$INPUT_INITIAL_REF"
 TERMINAL_REF="$INPUT_TERMINAL_REF"
+FORMAT="${INPUT_FORMAT:-json}"
 REPO="/github/workspace/$REPO_SUBDIR"
 
 if [ -z "$INITIAL_REF" ]
@@ -16,6 +17,6 @@ then
     TERMINAL_REF=$(locust.github terminal)
 fi
 
-locust --format yaml -r "$REPO" "$INITIAL_REF" "$TERMINAL_REF" | tee /locust.summary
+locust --format "$FORMAT" -r "$REPO" "$INITIAL_REF" "$TERMINAL_REF" | tee /locust.summary
 
 echo "::set-output name=summary_b64::$(base64 -w0 /locust.summary)"
