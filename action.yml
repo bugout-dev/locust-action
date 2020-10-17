@@ -18,8 +18,8 @@ inputs:
     required: false
     default: json
 outputs:
-  summary_b64:
-    description: Base 64 encoding of Locust summary for the diff between the initial_ref and terminal_ref
+  summary:
+    description: Locust summary for the diff between the initial_ref and terminal_ref
 runs:
   using: 'docker'
   image: 'Dockerfile'
