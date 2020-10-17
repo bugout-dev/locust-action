@@ -1,0 +1,16 @@
+name: "Bugout: Locust summary"
+description: "Generate a locust summary of a git diff"
+inputs:
+  initial_ref:
+    description: Starting reference for the diff
+    required: true
+  terminal_ref:
+    description: Ending reference for the diff
+    required: false
+    default: ""
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+branding:
+  icon: git-pull-request
+  color: orange
