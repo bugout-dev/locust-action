@@ -8,6 +8,10 @@ inputs:
     description: Ending reference for the diff
     required: false
     default: ""
+  repo_subdir:
+    description: Relative path to repository (e.g. git submodule) that you would like to run locust on
+    required: false
+    default: ""
 runs:
   using: 'docker'
   image: 'Dockerfile'
