@@ -3,7 +3,8 @@ description: "Generate a locust summary of a git diff"
 inputs:
   initial_ref:
     description: Starting reference for the diff
-    required: true
+    required: false
+    default: ""
   terminal_ref:
     description: Ending reference for the diff
     required: false
@@ -12,6 +13,13 @@ inputs:
     description: Relative path to repository (e.g. git submodule) that you would like to run locust on
     required: false
     default: ""
+  format:
+    description: Output format. Valid choices - json,yaml,html,html-github
+    required: false
+    default: yaml
+outputs:
+  summary_b64:
+    description: Base 64 encoding of Locust summary for the diff between the initial_ref and terminal_ref
 runs:
   using: 'docker'
   image: 'Dockerfile'

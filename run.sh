@@ -16,4 +16,6 @@ then
     TERMINAL_REF=$(locust.github terminal)
 fi
 
-locust --format yaml -r "$REPO" "$INITIAL_REF" "$TERMINAL_REF"
+locust --format yaml -r "$REPO" "$INITIAL_REF" "$TERMINAL_REF" | tee /locust.summary
+
+echo "::set-output name=summary_b64::$(base64 -w0 /locust.summary)"
