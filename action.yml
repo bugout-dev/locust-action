@@ -16,7 +16,7 @@ inputs:
   format:
     description: Output format. Valid choices - json,yaml,html,html-github
     required: false
-    default: yaml
+    default: json
 outputs:
   summary_b64:
     description: Base 64 encoding of Locust summary for the diff between the initial_ref and terminal_ref
