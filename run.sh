@@ -17,7 +17,9 @@ then
     TERMINAL_REF=$(locust.github terminal)
 fi
 
-locust --format "$FORMAT" -r "$REPO" "$INITIAL_REF" "$TERMINAL_REF" | tee /locust.summary
+REPO_URL=$(locust.github repo)
+
+locust --format "$FORMAT" -r "$REPO" "$INITIAL_REF" "$TERMINAL_REF" --github "${REPO_URL}" | tee /locust.summary
 
 # Thanks to this GitHub community post:
 # https://github.community/t/set-output-truncates-multiline-strings/16852/3
