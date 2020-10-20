@@ -22,7 +22,18 @@ jobs:
         uses: simiotics/locust-action@v0.1.0
         id: locust
         with:
-          format: yaml
+          format: html-github
+      - name: Comment on PR
+        uses: actions/github-script@v3
+        with:
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '${{ steps.locust.outputs.summary }}',
+            })
+
 ```
 
 *Note the `fetch-depth: 0` in the `actions/checkout@v2` step. That is a very important parameter.
