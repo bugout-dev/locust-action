@@ -19,7 +19,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Generate Locust summary
-        uses: simiotics/locust-action@v0.1.0
+        uses: simiotics/locust-action
         id: locust
         with:
           format: html-github
