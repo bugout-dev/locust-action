@@ -5,18 +5,26 @@ GitHub Action for the [Locust diff tool](https://github.com/simiotics/locust).
 
 The easiest way is to add the following YAML as `.github/workflows/locust.yml` in your GitHub
 repositories:
-```
+
+```yaml
 name: Locust summary
 
-on: [pull_request]
+on: [ pull_request_target ]
 
 jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
+      - name: PR head repo
+        id: head_repo_name
+        run: |
+          HEAD_REPO_NAME=$(jq -r '.pull_request.head.repo.full_name' "$GITHUB_EVENT_PATH")
+          echo "PR head repo: $HEAD_REPO_NAME"
+          echo "::set-output name=repo::$HEAD_REPO_NAME"
       - name: Checkout git repo
         uses: actions/checkout@v2
         with:
+          repository: ${{ steps.head_repo_name.outputs.repo }}
           fetch-depth: 0
       - name: Generate Locust summary
         uses: simiotics/locust-action@main
@@ -33,7 +41,6 @@ jobs:
               repo: context.repo.repo,
               body: '${{ steps.locust.outputs.summary }}',
             })
-
 ```
 
 *Note the `fetch-depth: 0` in the `actions/checkout@v2` step. That is a very important parameter.
