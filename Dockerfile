@@ -1,4 +1,4 @@
-FROM bugout/locust:v0.1.1
+FROM bugout/locust:v0.1.2
 
 COPY run.sh /run.sh
 
