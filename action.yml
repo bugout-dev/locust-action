@@ -16,7 +16,7 @@ inputs:
   format:
     description: Output format. Valid choices - json,yaml,html,html-github
     required: false
-    default: json
+    default: yaml
 outputs:
   summary:
     description: Locust summary for the diff between the initial_ref and terminal_ref
