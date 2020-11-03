@@ -18,10 +18,9 @@ then
 fi
 
 REPO_URL=$(locust.github repo)
-COMMENTS_URL=$(cat $GITHUB_EVENT_PATH | jq .pull_request._links.comments.href)
-TERMINAL_HASH=$(cat $GITHUB_EVENT_PATH | jq .pull_request.head.sha)
+COMMENTS_URL=$(cat $GITHUB_EVENT_PATH | jq -r .pull_request._links.comments.href)
 
-locust --format "$FORMAT" -r "$REPO" "$INITIAL_REF" "$TERMINAL_REF" --github "${REPO_URL}" --metadata "\"comments_url\": ${COMMENTS_URL}, \"terminal_hash\": ${TERMINAL_HASH}" | tee /locust.summary
+locust --format "$FORMAT" -r "$REPO" "$INITIAL_REF" "$TERMINAL_REF" --github "${REPO_URL}" --metadata "{\"comments_url\": \"${COMMENTS_URL}\", \"terminal_hash\": \"$TERMINAL_REF\"}" | tee /locust.summary
 
 # Thanks to this GitHub community post:
 # https://github.community/t/set-output-truncates-multiline-strings/16852/3
